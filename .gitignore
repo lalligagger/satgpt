@@ -1,0 +1,4 @@
+
+*.pyc
+
+src/mypackage.egg-info/
