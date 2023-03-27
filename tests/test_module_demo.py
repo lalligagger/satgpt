@@ -3,7 +3,7 @@
 
 import unittest
 
-from mypackage.module_demo import print_something
+from satgpt.module_demo import print_something
 
 class TestModuleDemo(unittest.TestCase):
     def test_print_something(self):
