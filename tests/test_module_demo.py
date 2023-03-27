@@ -4,7 +4,7 @@
 import unittest
 
 from satgpt.module_demo import print_something
-# import sgpt works
+import sgpt #works
 
 class TestModuleDemo(unittest.TestCase):
     def test_print_something(self):
