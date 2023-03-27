@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/satgpt/__init__.py
+src/satgpt/module_demo.py
+src/satgpt/version.py
+src/satgpt.egg-info/PKG-INFO
+src/satgpt.egg-info/SOURCES.txt
+src/satgpt.egg-info/dependency_links.txt
+src/satgpt.egg-info/top_level.txt
+tests/test_module_demo.py
