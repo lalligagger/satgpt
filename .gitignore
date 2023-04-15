@@ -2,7 +2,7 @@
 *.pyc
 
 src/satgpt.egg-info/
-.DS_Store
+*/.DS_Store
 
 # Distribution / packaging
 .Python
