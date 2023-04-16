@@ -8,6 +8,8 @@ from setuptools.command.develop import develop
 from setuptools.command.install import install
 
 def add_satgpt_prompt():
+    # set environment variable OPENAI_API_KEY
+    os.environ["OPENAI_API_KEY"] = "ab-NOTAREALKEY"
     import sgpt
     role_dict = json.loads(sgpt.role.SHELL_ROLE)
 
