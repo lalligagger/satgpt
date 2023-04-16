@@ -66,10 +66,12 @@ if __name__ == "__main__":
 
     # Request: """
 
-    file_path = getenv("HOME") + "/.config/shell_gpt/roles/shell.json"
+    # file_path = getenv("HOME") + "/.config/shell_gpt/roles/shell.json"
+    # with open(file_path, "r") as f:
+    #         role_dict = json.loads(f.read())
 
-    with open(file_path, "r") as f:
-        role_dict = json.loads(f.read())
+    import sgpt
+    role_dict = json.loads(sgpt.role.SHELL_ROLE)
 
     file_path = getenv("HOME") + "/.config/shell_gpt/roles/satgpt.json"
 
