@@ -1,3 +1,0 @@
-[submodule "src/shell_gpt"]
-	path = src/shell_gpt
-	url = https://github.com/lalligagger/shell_gpt
