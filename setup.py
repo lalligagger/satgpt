@@ -1,18 +1,20 @@
 #!/usr/bin/env python
-import os
-from setuptools import setup
 import json
+import os
 from os import getenv
+
+from setuptools import setup
+
 
 # read in local json file as string
 def read_json_file(file_path):
     with open(file_path, "r") as f:
         return f.read()
 
+
 if __name__ == "__main__":
     # setup for satgpt
     setup()
-
 
     STAC_COLLECTION = read_json_file(file_path="reference/stac/collection.json")
     STAC_LANDSAT = read_json_file(file_path="reference/stac/landsat.json")
@@ -56,7 +58,6 @@ if __name__ == "__main__":
     #     STAC_LANDSAT=STAC_LANDSAT,
     #     STAC_SENTINEL=STAC_SENTINEL,
     # )
-
 
     # rio
     # # rio is a command line tool for writing, reading, and manipulating geospatial raster data. it is the CLI for rasterio.
