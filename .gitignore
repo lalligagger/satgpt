@@ -1,6 +1,7 @@
 
 *.pyc
 
+data/
 src/satgpt.egg-info/
 */.DS_Store
 
