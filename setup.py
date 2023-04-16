@@ -35,8 +35,8 @@ class PostInstallCommand(install):
 if __name__ == "__main__":
     # setup for satgpt
     setup(
-        # cmdclass={
-        #     'develop': PostDevelopCommand,
-        #     'install': PostInstallCommand,
-        # },
+        cmdclass={
+            'develop': PostDevelopCommand,
+            'install': PostInstallCommand,
+        },
     )
