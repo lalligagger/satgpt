@@ -8,16 +8,12 @@ from setuptools.command.develop import develop
 from setuptools.command.install import install
 
 def add_satgpt_prompt():
-    # set environment variable OPENAI_API_KEY
-    os.environ["OPENAI_API_KEY"] = "ab-NOTAREALKEY"
-    import sgpt
-    role_dict = json.loads(sgpt.role.SHELL_ROLE)
-
     file_path = getenv("HOME") + "/.config/shell_gpt/roles/satgpt.json"
-
-    role_dict["role"] += SHELL_PROMPT
-    with open(file_path, "w") as f:
-        f.write(json.dumps(role_dict))
+    # copy from ./.config/satgpt.json to file_path if it doesn't exist already
+    if not os.path.exists(file_path):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w") as f:
+            json.dump({}, f)
 
 # https://stackoverflow.com/questions/20288711/post-install-script-with-python-setuptools
 class PostDevelopCommand(develop):
