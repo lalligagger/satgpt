@@ -50,7 +50,7 @@ def make_satgpt_role():
     )
 
     satgpt_json = {
-        "name": "satgpt",
+        "name": "shell",
         "expecting": "Command",
         "variables": {
             "shell": shell_name,
@@ -59,7 +59,7 @@ def make_satgpt_role():
         "role": SATGPT_ROLE,
     }
     print(satgpt_json)
-    file_path = getenv("HOME") + "/.config/shell_gpt/roles/satgpt.json"
+    file_path = getenv("HOME") + "/.config/shell_gpt/roles/shell.json"
 
     # make directory if it doesn't exist
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
