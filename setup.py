@@ -9,10 +9,10 @@ import platform
 from os import getenv, pathsep
 from os.path import basename
 import json
-from distro import name as distro_name
 
 # adapted from https://github.com/TheR1D/shell_gpt/blob/main/sgpt/role.py
 def make_satgpt_role():
+    from distro import name as distro_name
     operating_systems = {
         "Linux": "Linux/" + distro_name(pretty=True),
         "Windows": "Windows " + platform.release(),
@@ -61,11 +61,18 @@ def make_satgpt_role():
     print(satgpt_json)
     file_path = getenv("HOME") + "/.config/shell_gpt/roles/satgpt.json"
 
+    # make directory if it doesn't exist
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, "w") as f:
         f.write(json.dumps(satgpt_json, indent=4))
 
 
 if __name__ == "__main__":
     # setup for satgpt
+    setup(
+        install_requires=[
+            "shell_gpt",
+            "distro",
+        ],
+    )
     make_satgpt_role()
-    setup()
