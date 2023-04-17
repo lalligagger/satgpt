@@ -69,5 +69,11 @@ def make_satgpt_role():
 
 if __name__ == "__main__":
     # setup for satgpt
-    setup()
+    setup(
+        # install_requires=[
+        #     "shell_gpt",
+        #     "pystac",
+        #     "distro",
+        # ],
+    )
     make_satgpt_role()
