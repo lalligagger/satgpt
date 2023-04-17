@@ -1,3 +1,7 @@
+Version 0.0.4:
+- Moved role creation to manual script run
+- Populated README with basic usage
+
 Version 0.0.3:
 - Fixed custom role creation for satgpt to grab target machine os/ shell
 - Added pystac as install dependency for demos
