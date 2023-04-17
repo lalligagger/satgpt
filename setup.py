@@ -1,18 +1,17 @@
 #!/usr/bin/env python
 import json
 import os
-from os import getenv
-
-from setuptools import setup
-
 import platform
 from os import getenv, pathsep
 from os.path import basename
-import json
+
+from setuptools import setup
+
 
 # adapted from https://github.com/TheR1D/shell_gpt/blob/main/sgpt/role.py
 def make_satgpt_role():
     from distro import name as distro_name
+
     operating_systems = {
         "Linux": "Linux/" + distro_name(pretty=True),
         "Windows": "Windows " + platform.release(),
@@ -26,7 +25,6 @@ def make_satgpt_role():
         shell_name = "powershell.exe" if is_powershell else "cmd.exe"
     else:
         shell_name = basename(getenv("SHELL", "/bin/sh"))
-
 
     SATGPT_ROLE = """###
     Provide only {shell} commands for {os} without any description.
@@ -47,16 +45,18 @@ def make_satgpt_role():
     IMPORTANT: NO COMMAS IN BETWEEN NUMERIC BBOX VALUES. USE SPACES ONLY BETWEEN BBOX VALUES. NO EXECPTIONS.
 
     ____
-    """.format(shell=shell_name, os=os_name)
+    """.format(
+        shell=shell_name, os=os_name
+    )
 
-    satgpt_json ={
-        "name": "satgpt", 
-        "expecting": "Command", 
+    satgpt_json = {
+        "name": "satgpt",
+        "expecting": "Command",
         "variables": {
-            "shell": shell_name, 
+            "shell": shell_name,
             "os": os_name,
-            }, 
-            "role": SATGPT_ROLE
+        },
+        "role": SATGPT_ROLE,
     }
     print(satgpt_json)
     file_path = getenv("HOME") + "/.config/shell_gpt/roles/satgpt.json"
