@@ -42,6 +42,10 @@ def make_satgpt_role():
     stac-client search https://landsatlook.usgs.gov/stac-server/  --bbox 102.5 22.5 103.5 23.5 --collections landsat-c2l2-sr --datetime 2022-09-01/2023-04-30 --query "eo:cloud_cover<20"
     IMPORTANT: NO COMMAS IN BETWEEN NUMERIC BBOX VALUES. USE SPACES ONLY BETWEEN BBOX VALUES. NO EXECPTIONS.
 
+
+    Pipe example with Stacker
+    stac-client search https://earth-search.aws.element84.com/v0 --bbox -77.119759 38.791645 -76.909393 38.995548 --datetime 2022-06-01/2022-08-31 > ./data/save-items.json \
+    && python src/satgpt/stacker.py --path=data/save-items.json --resolution=20 --bounds_latlon=-77.131,38.979,-76.893,38.811 - to_gif
     ____
     """.format(
         shell=shell_name, os=os_name
