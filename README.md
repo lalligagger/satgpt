@@ -42,3 +42,5 @@ sgpt --shel --repl temp
 ```
 
 4. Try other things!
+
+https://user-images.githubusercontent.com/11700267/233900142-55a38676-32ab-4c78-8226-b338b9b3b876.mov
