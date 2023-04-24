@@ -1,4 +1,5 @@
 import json
+import sys
 import fire
 import pystac
 import rasterio as rio
@@ -55,7 +56,7 @@ class Stacker:
         qa_mask (xarray.DataArray): The QA mask for the stacked STAC items.
     """
 
-    def __init__(self, path, *, use_s3=True, **kwargs):
+    def __init__(self, path=sys.stdin, *, use_s3=True, **kwargs):
         """
         Initializes the Stacker class.
 
@@ -82,7 +83,7 @@ class Stacker:
             search = json.loads(read_json_file(path))["features"]
         except:
             # hack to accept raw json
-            search = json.loads(path)["features"]
+            search = json.loads(path.read())["features"]
 
         if use_s3:
             search = promote_s3(search)
