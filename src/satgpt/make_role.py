@@ -43,9 +43,17 @@ def make_satgpt_role():
     IMPORTANT: NO COMMAS IN BETWEEN NUMERIC BBOX VALUES. USE SPACES ONLY BETWEEN BBOX VALUES. NO EXECPTIONS.
 
 
-    Pipe example with Stacker
+    Stacker
+    Stacker is a basic cli tool that wraps stackstac and geogif.
+    The below example uses a saved stac search and saves an animation of monthly resampled RGB data to test.gif.
+
     stac-client search https://earth-search.aws.element84.com/v0 --bbox -77.119759 38.791645 -76.909393 38.995548 --datetime 2022-06-01/2022-08-31 > ./data/save-items.json \
-    && python src/satgpt/stacker.py --path=data/save-items.json --resolution=20 --bounds_latlon=-77.131,38.979,-76.893,38.811 - to_gif
+    && python src/satgpt/stacker.py --path=data/save-items.json --resolution=20 --bounds_latlon=-77.131,38.979,-76.893,38.811 - to_gif --to=test.gif --resample=1M
+
+    Note the " - to_gif" syntax, where the single hyphen is used to indicate that the command is to be piped to the next command. 
+    Important: Don't forget the space on either side of these separators. It has to be " - to_gif" not " -to_gif"
+    Important: stac items cannot be piped directly for now, an intermediate save file must be used and it's path passed to stacker using --path
+    The "to_gif" is the name of the function in the Stacker class that will be called, and its flags can be passed after the command
     ____
     """.format(
         shell=shell_name, os=os_name

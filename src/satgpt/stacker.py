@@ -106,7 +106,7 @@ class Stacker:
         Returns:
             Stacker: The Stacker object.
         """
-        platform = "sentinel"
+        platform = "landsat"
 
         if platform == "landsat":
             mask_bitfields = [1, 2, 3, 4]  # dilated cloud, cirrus, cloud, cloud shadow
@@ -169,7 +169,7 @@ class Stacker:
         aws_session = AWSSession(requester_pays=True)
         with rio.Env(aws_session):
             with ProgressBar():
-                gif_bytes = dgif(sr, date_format="Date: %d-%m-%Y", bytes=True, **kwargs).compute()
+                gif_bytes = dgif(sr, bytes=True, **kwargs).compute()
 
         with open(to, "wb") as f:
             f.write(gif_bytes)
