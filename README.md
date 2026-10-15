@@ -1,10 +1,17 @@
 # SatGPT
 
+## Status (2026-10)
+
+Alpha from April 2023. Ported to shell-gpt 1.x on 2026-10-15, but the `stacker` path has not been
+tested since then (Landsat on AWS is requester-pays and needs AWS credentials). The successor is
+[satgpt-app](https://github.com/lalligagger/satgpt-app), with a live demo at
+https://kevinlalli.me/satgpt-app/.
+
 GPT for satellite mission planning. In development. Get your API keys ready!
 
 SatGPT heavily leverages Shell GPT, a command-line UI for OpenAI's completion API, 
-and its features for custom role creation (as of 04/16/2023). Currently for SatGPT to work,
-we need to overwrite the default shell roll using the instructions below.
+and its custom role feature. For SatGPT to work, we need to replace the default shell role
+using the instructions below.
 
 ## Installation
 
@@ -16,17 +23,21 @@ we need to overwrite the default shell roll using the instructions below.
 python -m pip install -e . 
 ```
 
-3. Overwrite `shell-gpt` default `shell` role with `satgpt` alpha demo.
+3. Write the `satgpt` role for `shell-gpt` 1.x. This creates
+`~/.config/shell_gpt/roles/Shell Command Generator.json`, the role `sgpt --shell` uses, and backs up
+any existing file to `Shell Command Generator.json.bak` first.
 
 ```
-python src/satgpt/make_role.py
+python src/satgpt/make_role.py            # write the role file
+python src/satgpt/make_role.py --print    # only print the JSON, write nothing
 ```
+
 ## Usage
 
 1. Start the REPL in shell mode.
 
 ```
-sgpt --shel --repl temp
+sgpt --shell --repl temp
 ```
 
 2. Request a STAC search using natural language
