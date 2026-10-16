@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.12", "3.14"]
+        python-version: ["3.12", "3.13", "3.14"]
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -50,8 +50,9 @@ jobs:
           /tmp/smoke/bin/satgpt-role --print > /tmp/role.json && head -c 200 /tmp/role.json && echo
           /tmp/smoke/bin/python -c "import satgpt, satgpt.stacker; print('satgpt', satgpt.__version__, 'imports with rasterio and stackstac')"
           /tmp/smoke/bin/pip check
-      - name: "gif extra (geogif pins numpy<2, so Python 3.12 and below only)"
-        if: matrix.python-version != '3.14'
+      - name: "gif extra: expected to FAIL until geogif allows numpy>=2 (TODO.md)"
+        if: matrix.python-version == '3.12'
+        continue-on-error: true
         run: |
           /tmp/smoke/bin/pip install --quiet "$(ls dist/*.whl)[gif]"
           /tmp/smoke/bin/python -c "import geogif; print('gif extra ok')"

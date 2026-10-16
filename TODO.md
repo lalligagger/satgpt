@@ -21,8 +21,9 @@ is the exact set that passed the smoke test.
       so it needs AWS credentials; document it, and fail with a clear message when they are missing.
 - [ ] **shell-gpt 1.x REPL untested.** Role loading is verified (`sgpt --show-role`); `sgpt --shell --repl` with
       the custom role, and the model's output quality with current models, are not.
-- [ ] **Python 3.13+ with the `gif` extra** is impossible until the geogif item above is done; `requires-python`
-      stays `>=3.10` for the core package.
+- [ ] **The `gif` extra cannot be installed at all right now.** rasterio>=1.5 requires numpy>=2, geogif requires
+      numpy<2, so `pip install satgpt[gif]` ends in ResolutionImpossible on every Python. CI runs that install as
+      an expected failure so the day it starts passing is visible. The geogif item above is the fix.
 
 ## satgpt-app (the web app, separate repo)
 

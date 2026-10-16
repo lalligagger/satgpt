@@ -9,7 +9,7 @@ description = "GPT for satellite imagery: a shell-gpt role that writes stac-clie
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 authors = [{ name = "Kevin Lalli", email = "kevinlalli@pm.me" }]
 keywords = ["stac", "satellite", "sentinel-2", "landsat", "llm", "shell-gpt", "earth-observation"]
 classifiers = [
@@ -18,11 +18,15 @@ classifiers = [
   "Intended Audience :: Science/Research",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: GIS",
 ]
 dependencies = [
   # Floors are the versions a fresh install resolved to and passed the smoke test with on 2026-10-16
-  # (Python 3.14, arm64 macOS; CI repeats it on 3.10, 3.12 and 3.14). See constraints.txt for the full set.
+  # (Python 3.14, arm64 macOS; CI repeats it on 3.12, 3.13 and 3.14). rasterio 1.5 needs Python >= 3.12,
+  # which sets requires-python. See constraints.txt for the full set.
   "fire>=0.7.1",
   "dask>=2026.8.0",
   "pystac>=1.15.2",
@@ -35,7 +39,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# geogif 0.3 pins numpy<2 and Pillow<11, so this extra installs on Python 3.10 to 3.12 only (TODO.md).
+# BROKEN until geogif relaxes numpy<2 (TODO.md): rasterio>=1.5 needs numpy>=2, so pip cannot resolve this
+# extra today. Kept so the name is reserved; `pip install satgpt[gif]` fails with a clear conflict.
 gif = ["geogif>=0.3"]
 # stacterm 0.1.0 pins pandas~=1.2: no wheels for Python >= 3.12 and it conflicts with stackstac>=0.5 (TODO.md).
 stacterm = ["stacterm"]

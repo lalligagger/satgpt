@@ -58,5 +58,7 @@ Two ways. The second is the one to keep.
   on CI and on the Mac. `geogif` pins `numpy<2`, which caps Python at 3.12. Both are now optional extras.
   Before a release, run `pip install dist/*.whl` in a fresh venv on every Python you claim, and read the
   `Collecting X (from Y)` lines when it goes wrong.
-- **Heavy dependencies.** rasterio, dask and stackstac make a fresh install slow and version-sensitive; test
-  the install on the oldest supported Python, not just the newest.
+- **Your Python floor is your dependencies' floor.** rasterio 1.5 requires Python >= 3.12, so floors at today's
+  versions mean `requires-python = ">=3.12"`; a 3.10 smoke job failed within seconds and told us. Test the
+  install on every Python you claim, in CI, before tagging.
+- **Heavy dependencies.** rasterio, dask and stackstac make a fresh install slow and version-sensitive.
