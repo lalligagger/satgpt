@@ -8,6 +8,10 @@ Version 0.0.5:
 - The stacker path has not been re-tested since the port (Landsat on AWS is requester-pays)
 - Packaging moved to pyproject.toml (PEP 621): MIT LICENSE file, requires-python >=3.10, a
   ``satgpt-role`` console script, dead opticsinspace email replaced
+- geogif and stacterm became optional extras (``satgpt[gif]``, ``satgpt[stacterm]``): geogif pins numpy<2,
+  stacterm pins pandas~=1.2, and both broke a fresh install on current Python
+- Dependency floors raised to the versions a fresh install resolves to today (constraints.txt has the
+  exact set); breaking upgrades listed in TODO.md
 
 Version 0.0.4:
 - Moved role creation to manual script run

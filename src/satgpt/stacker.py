@@ -5,7 +5,6 @@ import pystac
 import rasterio as rio
 import stackstac
 from dask.diagnostics import ProgressBar
-from geogif import dgif
 from rasterio.session import AWSSession
 import warnings
 
@@ -46,6 +45,15 @@ def promote_s3(items):
                 "usgs-landsat-ard", "usgs-landsat"
             )
     return items
+
+def _dgif():
+    """geogif is an optional extra (``pip install satgpt[gif]``): it pins numpy<2 and Pillow<11."""
+    try:
+        from geogif import dgif
+    except ImportError as e:  # pragma: no cover
+        raise ImportError("to_gif needs geogif: pip install 'satgpt[gif]'") from e
+    return dgif
+
 
 class Stacker:
     """
@@ -170,7 +178,7 @@ class Stacker:
         aws_session = AWSSession(requester_pays=True)
         with rio.Env(aws_session):
             with ProgressBar():
-                gif_bytes = dgif(sr, bytes=True, **kwargs).compute()
+                gif_bytes = _dgif()(sr, bytes=True, **kwargs).compute()
 
         with open(to, "wb") as f:
             f.write(gif_bytes)

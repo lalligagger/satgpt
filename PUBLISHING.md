@@ -53,5 +53,10 @@ Two ways. The second is the one to keep.
   sample STAC JSON out.
 - **The package name was taken by its own 0.0.4.** You can only upload a new version, never replace one, and
   a yanked or deleted version number can never be reused. `racinglines` is free on PyPI as of 2026-10-16.
+- **A dependency with a stale pin breaks the whole install.** `stacterm` 0.1.0 pins `pandas~=1.2` (no wheels
+  past Python 3.11, and it conflicts with `stackstac>=0.5`), so pip backtracked into source builds that failed
+  on CI and on the Mac. `geogif` pins `numpy<2`, which caps Python at 3.12. Both are now optional extras.
+  Before a release, run `pip install dist/*.whl` in a fresh venv on every Python you claim, and read the
+  `Collecting X (from Y)` lines when it goes wrong.
 - **Heavy dependencies.** rasterio, dask and stackstac make a fresh install slow and version-sensitive; test
   the install on the oldest supported Python, not just the newest.

@@ -21,18 +21,24 @@ classifiers = [
   "Topic :: Scientific/Engineering :: GIS",
 ]
 dependencies = [
-  "fire",
-  "dask",
-  "pystac",
-  "pystac-client",
-  "rasterio",
-  "stacterm",
-  "stackstac",
-  "geogif",
-  "shell-gpt>=1.0",
-  "click",
-  "distro; sys_platform == 'linux'",
+  # Floors are the versions a fresh install resolved to and passed the smoke test with on 2026-10-16
+  # (Python 3.14, arm64 macOS; CI repeats it on 3.10, 3.12 and 3.14). See constraints.txt for the full set.
+  "fire>=0.7.1",
+  "dask>=2026.8.0",
+  "pystac>=1.15.2",
+  "pystac-client>=0.9.0",
+  "rasterio>=1.5.2",
+  "stackstac>=0.5.1",
+  "shell-gpt>=1.5.1",
+  "click>=8.5.0",
+  "distro>=1.9; sys_platform == 'linux'",
 ]
+
+[project.optional-dependencies]
+# geogif 0.3 pins numpy<2 and Pillow<11, so this extra installs on Python 3.10 to 3.12 only (TODO.md).
+gif = ["geogif>=0.3"]
+# stacterm 0.1.0 pins pandas~=1.2: no wheels for Python >= 3.12 and it conflicts with stackstac>=0.5 (TODO.md).
+stacterm = ["stacterm"]
 
 [project.urls]
 Homepage = "https://github.com/lalligagger/satgpt"
