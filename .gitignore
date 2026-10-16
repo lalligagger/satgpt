@@ -24,3 +24,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+# packaging
+build/
+dist/
+*.egg-info/
+.venv/

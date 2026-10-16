@@ -6,6 +6,8 @@ Version 0.0.5:
 - Added geogif (imported by stacker.py) to install_requires, pinned shell-gpt>=1.0
 - Fixed typos in the role text and README (--shel)
 - The stacker path has not been re-tested since the port (Landsat on AWS is requester-pays)
+- Packaging moved to pyproject.toml (PEP 621): MIT LICENSE file, requires-python >=3.10, a
+  ``satgpt-role`` console script, dead opticsinspace email replaced
 
 Version 0.0.4:
 - Moved role creation to manual script run

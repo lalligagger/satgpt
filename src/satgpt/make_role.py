@@ -112,7 +112,8 @@ def make_satgpt_role(print_only=False):
     return file_path
 
 
-if __name__ == "__main__":
+def main(argv=None):
+    """Console entry point (``satgpt-role``)."""
     parser = argparse.ArgumentParser(
         description="Write the satgpt role for shell-gpt 1.x (used by `sgpt --shell`)."
     )
@@ -122,5 +123,9 @@ if __name__ == "__main__":
         dest="print_only",
         help="only print the role JSON, do not write any file",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     make_satgpt_role(print_only=args.print_only)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,50 @@
+# Build and publish to PyPI on a version tag (v0.0.5), using PyPI trusted publishing (OIDC, no API token).
+# One-time setup on pypi.org: project satgpt -> Settings -> Publishing -> add a GitHub publisher with
+# owner lalligagger, repository satgpt, workflow publish.yml, environment pypi. Then: git tag v0.0.5 && git push --tags
+name: publish
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade build twine
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - name: Tag must match the package version
+        run: |
+          v=$(python -c "import re;print(re.search(r\"__version__ = '([^']+)'\", open('src/satgpt/version.py').read()).group(1))")
+          echo "package $v, ref ${GITHUB_REF_NAME}"
+          [ "${GITHUB_REF_NAME}" = "v$v" ] || [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]
+      - name: Install the wheel in a fresh venv and smoke-test it
+        run: |
+          python -m venv /tmp/smoke && /tmp/smoke/bin/pip install --quiet dist/*.whl
+          /tmp/smoke/bin/satgpt-role --print | head -3
+          /tmp/smoke/bin/python -c "import satgpt, satgpt.stacker; print('satgpt', satgpt.__version__, 'imports with rasterio, stackstac, geogif')"
+          /tmp/smoke/bin/pip check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write   # trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

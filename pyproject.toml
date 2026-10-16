@@ -1,4 +1,53 @@
-# As per https://github.com/pypa/setuptools/blob/main/docs/userguide/quickstart.rst
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "satgpt"
+dynamic = ["version"]
+description = "GPT for satellite imagery: a shell-gpt role that writes stac-client searches and a stacker CLI for GIFs. Alpha."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Kevin Lalli", email = "kevinlalli@pm.me" }]
+keywords = ["stac", "satellite", "sentinel-2", "landsat", "llm", "shell-gpt", "earth-observation"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Scientific/Engineering :: GIS",
+]
+dependencies = [
+  "fire",
+  "dask",
+  "pystac",
+  "pystac-client",
+  "rasterio",
+  "stacterm",
+  "stackstac",
+  "geogif",
+  "shell-gpt>=1.0",
+  "click",
+  "distro; sys_platform == 'linux'",
+]
+
+[project.urls]
+Homepage = "https://github.com/lalligagger/satgpt"
+Changelog = "https://github.com/lalligagger/satgpt/blob/main/CHANGELOG.rst"
+"Web app" = "https://github.com/lalligagger/satgpt-app"
+Demo = "https://kevinlalli.me/satgpt-app/"
+
+[project.scripts]
+satgpt-role = "satgpt.make_role:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "satgpt.version.__version__" }
